@@ -1,5 +1,5 @@
 import React from "react";
-// import * as BooksAPI from './BooksAPI'
+import { Route } from "react-router-dom";
 import "./App.css";
 import SearchBooks from "./SearchBooks";
 import Shelves from "./Shelves";
@@ -8,7 +8,6 @@ import { getAll } from "./BooksAPI";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    showSearchPage: false,
   };
 
   componentDidMount() {
@@ -20,27 +19,11 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { books } = this.state;
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks books={this.state.books}/>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Shelves books={this.state.books} />
-              </div>
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>
-                Add a book
-              </a>
-            </div>
-          </div>
-        )}
+        <Route exact path="/" render={() => <Shelves books={books} />} />
+        <Route path="/search" render={() => <SearchBooks books={books} />} />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   static propTypes = {
@@ -20,9 +21,9 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="search-books-bar">
-        <a className="close-search" href="#">
+        <Link className="close-search" to="/">
           Close
-        </a>
+        </Link>
         <div className="search-books-input-wrapper">
           <input
             type="text"
