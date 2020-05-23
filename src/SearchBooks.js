@@ -10,38 +10,50 @@ class SearchBooks extends Component {
   };
   state = {
     foundBooks: [],
+    error: false,
   };
 
   searchBook = (query) => {
     search(query).then((found) => {
-      if (found) {
+      if (found["books"]["error"]) {
+        this.setState({
+          foundBooks: [],
+          error: true,
+        });
+      } else {
         const booksInShelf = this.props.books.filter(({ id: id1 }) =>
-          found.some(({ id: id2 }) => id2 === id1)
+          found.books.some(({ id: id2 }) => id2 === id1)
         );
-
-        const booksNotInShelf = found.filter(
+        const booksNotInShelf = found.books.filter(
           ({ id: id1 }) => !this.props.books.some(({ id: id2 }) => id2 === id1)
         );
 
         const foundBooks = [...booksInShelf, ...booksNotInShelf];
         this.setState({
           foundBooks,
+          error: false,
         });
       }
     });
   };
 
   render() {
+    const { error, foundBooks } = this.state;
     return (
-      <div className="search-books">
+      <div className='search-books'>
         <SearchBar onSearchChange={this.searchBook} />
-        {this.state.foundBooks ? (
-          <div className="search-books-results">
-            <ol className="books-grid">
+        {error && (
+          <div className='search-books-results'>
+            <h1 className='books-grid'>Invalid query</h1>
+          </div>
+        )}
+        {foundBooks && (
+          <div className='search-books-results'>
+            <ol className='books-grid'>
               <Books books={this.state.foundBooks} />
             </ol>
           </div>
-        ) : null}
+        )}
       </div>
     );
   }

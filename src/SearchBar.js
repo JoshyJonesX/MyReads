@@ -12,24 +12,25 @@ class SearchBar extends Component {
   };
 
   handleChange = (event) => {
+    const { value } = event.target;
     this.setState({
-      value: event.target.value,
+      value,
     });
-    this.props.onSearchChange(this.state.value);
+    this.props.onSearchChange(value);
   };
 
   render() {
     return (
-      <div className="search-books-bar">
-        <Link className="close-search" to="/">
+      <div className='search-books-bar'>
+        <Link className='close-search' to='/'>
           Close
         </Link>
-        <div className="search-books-input-wrapper">
+        <div className='search-books-input-wrapper'>
           <input
-            type="text"
+            type='text'
             value={this.state.value}
             onChange={this.handleChange}
-            placeholder="Search by title or author"
+            placeholder='Search by title or author'
           />
         </div>
       </div>

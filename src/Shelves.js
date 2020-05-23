@@ -9,23 +9,23 @@ const Shelves = ({ books }) => {
     { name: "Want to Read", status: "wantToRead" },
     { name: "Read", status: "read" },
   ];
-  return shelves.map((shelf) => (
-    <div key={shelf.status} className="list-books">
-      <div className="list-books-title">
+  return (
+    <div className='list-books'>
+      <div className='list-books-title'>
         <h1>MyReads</h1>
       </div>
-      <div className="list-books-content">
+      <div className='list-books-content'>
         <div>
-          <Shelf shelf={shelf} books={books} />
+          {shelves.map((shelf) => (
+            <Shelf key={shelf.status} shelf={shelf} books={books} />
+          ))}
         </div>
       </div>
-      <div className="open-search">
-        <Link to='/search'>
-          Add a book
-        </Link>
+      <div className='open-search'>
+        <Link to='/search'>Add a book</Link>
       </div>
     </div>
-  ));
+  );
 };
 
 Shelves.propTypes = {
