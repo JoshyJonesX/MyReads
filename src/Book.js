@@ -1,34 +1,38 @@
 import React from "react";
 import propTypes from "prop-types";
 import DropDown from "./DropDown";
-import { update } from "./BooksAPI";
 
-const Book = ({ book }) => {
+const Book = ({ book, onBookUpdate }) => {
   const { imageLinks, title, authors, shelf } = book;
   const updateBook = (newShelf) => {
-    update(book, newShelf);
+    onBookUpdate(book, newShelf);
   };
   return (
-    <div className='book'>
-      <div className='book-top'>
-        <div
-          className='book-cover'
-          style={{
-            width: 128,
-            height: 174,
-            backgroundImage: `url(${imageLinks.thumbnail})`,
-          }}
-        ></div>
-        <DropDown onBookUpdate={updateBook} selected={shelf || ""} />
+    <li>
+      <div className='book'>
+        <div className='book-top'>
+          {imageLinks && (
+            <div
+              className='book-cover'
+              style={{
+                width: 128,
+                height: 174,
+                backgroundImage: `url(${imageLinks.thumbnail})`,
+              }}
+            ></div>
+          )}
+          <DropDown onBookUpdate={updateBook} selected={shelf || ""} />
+        </div>
+        <div className='book-title'>{title}</div>
+        <div className='book-authors'>{authors}</div>
       </div>
-      <div className='book-title'>{title}</div>
-      <div className='book-authors'>{authors}</div>
-    </div>
+    </li>
   );
 };
 
 Book.propTypes = {
   book: propTypes.object.isRequired,
+  onBookUpdate: propTypes.func.isRequired,
 };
 
 export default Book;

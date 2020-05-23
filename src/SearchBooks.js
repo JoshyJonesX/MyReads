@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 class SearchBooks extends Component {
   static propTypes = {
     books: propTypes.array.isRequired,
+    onBookUpdate: propTypes.func.isRequired,
   };
   state = {
     foundBooks: [],
@@ -50,7 +51,7 @@ class SearchBooks extends Component {
         {foundBooks && (
           <div className='search-books-results'>
             <ol className='books-grid'>
-              <Books books={this.state.foundBooks} />
+              <Books books={this.state.foundBooks} onBookUpdate={this.props.onBookUpdate} />
             </ol>
           </div>
         )}

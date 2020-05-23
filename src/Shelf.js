@@ -2,7 +2,7 @@ import React from "react";
 import propTypes from "prop-types";
 import Books from "./Books";
 
-const Shelf = ({ shelf, books }) => {
+const Shelf = ({ shelf, books, onBookUpdate }) => {
   const selectedBooks = books.filter((book) => book.shelf === shelf.status);
   return (
     <div className='list-books-content'>
@@ -11,7 +11,7 @@ const Shelf = ({ shelf, books }) => {
           <h2 className='bookshelf-title'>{shelf.name}</h2>
           <div className='bookshelf-books'>
             <ol className='books-grid'>
-              <Books books={selectedBooks} />
+              <Books onBookUpdate={onBookUpdate} books={selectedBooks} />
             </ol>
           </div>
         </div>
@@ -23,6 +23,7 @@ const Shelf = ({ shelf, books }) => {
 Shelf.propTypes = {
   shelf: propTypes.object.isRequired,
   books: propTypes.array.isRequired,
+  onBookUpdate: propTypes.func.isRequired,
 };
 
 export default Shelf;
